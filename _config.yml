@@ -1,0 +1,13 @@
+theme: jekyll-theme-minimal
+title: Content Metadata Standard
+description: An admission and metadata standard for child-safe namespaces
+
+Indentation matters in YAML — no leading spaces on those lines.
+
+5. Scroll down, leave "Commit directly to the main branch" selected, commit message Add site theme, click Commit new file
+
+6. Wait about a minute for the rebuild, then hard-reload the site
+
+jekyll-theme-minimal gives you a left sidebar with the title and a clean reading column — it suits a specification. If you'd rather have a bold header banner, swap in jekyll-theme-cayman. Change the one line and recommit to switch at any time.
+
+If the site goes blank after committing, the YAML has a typo — delete the file and the site reverts to the default immediately.
