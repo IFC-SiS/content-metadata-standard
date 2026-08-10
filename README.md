@@ -51,7 +51,7 @@ Substantive correspondence: shknudson@ifcsis.org
 ## Citation
 
 International Foundation for Child-Safe internet Standards, *Content Metadata
-Standard*, version 1.0 (draft), https://standard.ifcsis.org
+Standard*, version 1.0 (draft), https://ifc-sis.github.io/content-metadata-standard
 
 ## License
 
