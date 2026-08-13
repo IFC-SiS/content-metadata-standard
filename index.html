@@ -42,7 +42,7 @@
 <p>This is the versioned context document for the IFC-SiS Content Metadata Standard. A conforming
 child-safe namespace record binds to it with:</p>
 
-<pre>"@context": "https://schema.childstandards.org/v1"</pre>
+<pre>"@context": "https://standard.ifcsis.org/v1/index.jsonld"</pre>
 
 <p>The <code>childsafe:</code> prefix is invariant in every national instance. Field names are never
 localised and the vocabulary is closed at a given version: a record may carry only terms defined in
@@ -94,7 +94,7 @@ extension.</p>
 <h2>Machine-readable artifacts</h2>
 <table>
   <tr><th>Artifact</th><th>Location</th></tr>
-  <tr><td>JSON-LD context</td><td><a href="/v1">/v1/index.jsonld</a></td></tr>
+  <tr><td>JSON-LD context</td><td><a href="/v1/index.jsonld">/v1/index.jsonld</a></td></tr>
   <tr><td>JSON Schema (shape validation)</td><td><a href="/v1/record.schema.json">/v1/record.schema.json</a></td></tr>
   <tr><td>Example record</td><td><a href="/v1/example.json">/v1/example.json</a></td></tr>
 </table>
@@ -261,7 +261,7 @@ preceding major version is maintained for no less than twelve months after a rel
     mount.innerHTML = '<div class="err"><strong>The vocabulary tables could not be generated.</strong> ' +
       'The schema at <code>/v1/record.schema.json</code> did not load (' + esc(e.message) + '). ' +
       'This usually means the file is not being served, or CORS headers are missing. ' +
-      'The normative artifacts remain available directly at <a href="/v1">/v1</a> and ' +
+      'The normative artifacts remain available directly at <a href="/v1/index.jsonld">/v1</a> and ' +
       '<a href="/v1/record.schema.json">/v1/record.schema.json</a>.</div>';
   }
 })();
