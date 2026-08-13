@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://schema.childstandards.org/v1/record.schema.json",
+  "$id": "https://standard.ifcsis.org/v1/record.schema.json",
   "title": "IFC-SiS Content Metadata Record, Version 1.0",
   "description": "Gate 1 (Shape) validation for a conforming child-safe namespace metadata record. Field semantics are defined normatively in the IFC-SiS Content Metadata Standard, Section 6. Records carry a bounded validity window and a monotonic sequence number: a relying party MUST reject a record outside its window, and SHOULD reject a record whose sequence is lower than one already seen for the same domain. Canonicalization for signing is RFC 8785 (JCS). Where this schema and the Standard differ, the Standard governs.",
   "type": "object",
@@ -45,7 +45,7 @@
   ],
   "properties": {
     "@context": {
-      "const": "https://schema.childstandards.org/v1"
+      "const": "https://standard.ifcsis.org/v1/index.jsonld"
     },
     "@type": {
       "const": "ConformingDomain"

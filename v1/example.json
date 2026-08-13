@@ -1,5 +1,5 @@
 {
-  "@context": "https://schema.childstandards.org/v1",
+  "@context": "https://standard.ifcsis.org/v1/index.jsonld",
   "@type": "ConformingDomain",
   "childsafe:version": "1.0",
   "childsafe:domain": "example-instance.kid.uk",

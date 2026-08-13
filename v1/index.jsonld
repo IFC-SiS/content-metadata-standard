@@ -2,7 +2,7 @@
   "@context": {
     "@version": 1.1,
     "@protected": true,
-    "childsafe": "https://schema.childstandards.org/v1#",
+    "childsafe": "https://standard.ifcsis.org/v1#",
     "xsd": "http://www.w3.org/2001/XMLSchema#",
     "ConformingDomain": "childsafe:ConformingDomain",
     "childsafe:version": {
