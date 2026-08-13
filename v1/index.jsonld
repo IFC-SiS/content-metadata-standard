@@ -1,0 +1,169 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "@protected": true,
+    "childsafe": "https://schema.childstandards.org/v1#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "ConformingDomain": "childsafe:ConformingDomain",
+    "childsafe:version": {
+      "@id": "childsafe:version",
+      "@type": "xsd:string"
+    },
+    "childsafe:domain": {
+      "@id": "childsafe:domain",
+      "@type": "xsd:string"
+    },
+    "childsafe:issued": {
+      "@id": "childsafe:issued",
+      "@type": "xsd:date"
+    },
+    "childsafe:updated": {
+      "@id": "childsafe:updated",
+      "@type": "xsd:date"
+    },
+    "childsafe:operator": {
+      "@id": "childsafe:operator",
+      "@type": "xsd:string"
+    },
+    "childsafe:language": {
+      "@id": "childsafe:language",
+      "@type": "xsd:string",
+      "@container": "@set"
+    },
+    "childsafe:content-type": {
+      "@id": "childsafe:content-type",
+      "@type": "xsd:string",
+      "@container": "@set"
+    },
+    "childsafe:design-age-min": {
+      "@id": "childsafe:design-age-min",
+      "@type": "xsd:integer"
+    },
+    "childsafe:design-age-max": {
+      "@id": "childsafe:design-age-max"
+    },
+    "childsafe:minimum-age": {
+      "@id": "childsafe:minimum-age",
+      "@type": "xsd:integer"
+    },
+    "childsafe:parental-guidance": {
+      "@id": "childsafe:parental-guidance",
+      "@type": "xsd:boolean"
+    },
+    "childsafe:age-assurance": {
+      "@id": "childsafe:age-assurance",
+      "@type": "xsd:string"
+    },
+    "childsafe:interaction-type": {
+      "@id": "childsafe:interaction-type",
+      "@type": "xsd:string",
+      "@container": "@set"
+    },
+    "childsafe:messaging": {
+      "@id": "childsafe:messaging",
+      "@type": "xsd:string"
+    },
+    "childsafe:ugc-moderation": {
+      "@id": "childsafe:ugc-moderation",
+      "@type": "xsd:string"
+    },
+    "childsafe:live-interaction": {
+      "@id": "childsafe:live-interaction",
+      "@type": "xsd:boolean"
+    },
+    "childsafe:adult-contact-possible": {
+      "@id": "childsafe:adult-contact-possible",
+      "@type": "xsd:boolean"
+    },
+    "childsafe:data-collection": {
+      "@id": "childsafe:data-collection",
+      "@type": "xsd:string",
+      "@container": "@set"
+    },
+    "childsafe:data-sold": {
+      "@id": "childsafe:data-sold",
+      "@type": "xsd:boolean"
+    },
+    "childsafe:law-compliant": {
+      "@id": "childsafe:law-compliant",
+      "@type": "xsd:boolean"
+    },
+    "childsafe:privacy-policy-url": {
+      "@id": "childsafe:privacy-policy-url",
+      "@type": "@id"
+    },
+    "childsafe:anonymous-access": {
+      "@id": "childsafe:anonymous-access",
+      "@type": "xsd:boolean"
+    },
+    "childsafe:advertising": {
+      "@id": "childsafe:advertising",
+      "@type": "xsd:string"
+    },
+    "childsafe:in-app-purchase": {
+      "@id": "childsafe:in-app-purchase",
+      "@type": "xsd:boolean"
+    },
+    "childsafe:subscription-required": {
+      "@id": "childsafe:subscription-required",
+      "@type": "xsd:boolean"
+    },
+    "childsafe:randomised-reward": {
+      "@id": "childsafe:randomised-reward",
+      "@type": "xsd:boolean"
+    },
+    "childsafe:free-to-access": {
+      "@id": "childsafe:free-to-access",
+      "@type": "xsd:boolean"
+    },
+    "childsafe:jurisdiction": {
+      "@id": "childsafe:jurisdiction",
+      "@type": "xsd:string"
+    },
+    "childsafe:registry": {
+      "@id": "childsafe:registry",
+      "@type": "xsd:string"
+    },
+    "childsafe:valid-from": {
+      "@id": "childsafe:valid-from",
+      "@type": "xsd:dateTime"
+    },
+    "childsafe:valid-until": {
+      "@id": "childsafe:valid-until",
+      "@type": "xsd:dateTime"
+    },
+    "childsafe:sequence": {
+      "@id": "childsafe:sequence",
+      "@type": "xsd:integer"
+    },
+    "childsafe:scope": {
+      "@id": "childsafe:scope",
+      "@type": "xsd:string"
+    },
+    "childsafe:excluded-hosts": {
+      "@id": "childsafe:excluded-hosts",
+      "@type": "xsd:string",
+      "@container": "@set"
+    },
+    "childsafe:external-resources": {
+      "@id": "childsafe:external-resources",
+      "@type": "xsd:string"
+    },
+    "childsafe:canonicalization": {
+      "@id": "childsafe:canonicalization",
+      "@type": "xsd:string"
+    },
+    "childsafe:reviewer": {
+      "@id": "childsafe:reviewer",
+      "@type": "xsd:string"
+    },
+    "childsafe:determination-date": {
+      "@id": "childsafe:determination-date",
+      "@type": "xsd:date"
+    },
+    "childsafe:status": {
+      "@id": "childsafe:status",
+      "@type": "xsd:string"
+    }
+  }
+}

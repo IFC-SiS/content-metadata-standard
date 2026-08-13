@@ -1,0 +1,49 @@
+{
+  "@context": "https://schema.childstandards.org/v1",
+  "@type": "ConformingDomain",
+  "childsafe:version": "1.0",
+  "childsafe:domain": "example-instance.kid.uk",
+  "childsafe:issued": "2026-06-18",
+  "childsafe:updated": "2026-06-18",
+  "childsafe:operator": "Example Learning CIC",
+  "childsafe:language": [
+    "en",
+    "cy"
+  ],
+  "childsafe:content-type": [
+    "educational",
+    "reference"
+  ],
+  "childsafe:design-age-min": 5,
+  "childsafe:design-age-max": 11,
+  "childsafe:minimum-age": 5,
+  "childsafe:parental-guidance": false,
+  "childsafe:age-assurance": "none",
+  "childsafe:interaction-type": [
+    "read-only"
+  ],
+  "childsafe:adult-contact-possible": false,
+  "childsafe:data-collection": [
+    "none"
+  ],
+  "childsafe:data-sold": false,
+  "childsafe:law-compliant": true,
+  "childsafe:privacy-policy-url": "https://example-instance.kid.uk/privacy",
+  "childsafe:anonymous-access": true,
+  "childsafe:advertising": "none",
+  "childsafe:in-app-purchase": false,
+  "childsafe:subscription-required": false,
+  "childsafe:randomised-reward": false,
+  "childsafe:free-to-access": true,
+  "childsafe:jurisdiction": "GB",
+  "childsafe:registry": "registry.kid.uk",
+  "childsafe:valid-from": "2026-06-18T00:00:00Z",
+  "childsafe:valid-until": "2026-12-18T00:00:00Z",
+  "childsafe:sequence": 3,
+  "childsafe:scope": "domain-and-subdomains",
+  "childsafe:external-resources": "conforming-only",
+  "childsafe:canonicalization": "RFC8785",
+  "childsafe:reviewer": "Example Accredited Review Body",
+  "childsafe:determination-date": "2026-05-30",
+  "childsafe:status": "verified"
+}

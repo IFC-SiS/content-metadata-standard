@@ -1,0 +1,421 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schema.childstandards.org/v1/record.schema.json",
+  "title": "IFC-SiS Content Metadata Record, Version 1.0",
+  "description": "Gate 1 (Shape) validation for a conforming child-safe namespace metadata record. Field semantics are defined normatively in the IFC-SiS Content Metadata Standard, Section 6. Records carry a bounded validity window and a monotonic sequence number: a relying party MUST reject a record outside its window, and SHOULD reject a record whose sequence is lower than one already seen for the same domain. Canonicalization for signing is RFC 8785 (JCS). Where this schema and the Standard differ, the Standard governs.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "@context",
+    "@type",
+    "childsafe:version",
+    "childsafe:domain",
+    "childsafe:issued",
+    "childsafe:updated",
+    "childsafe:operator",
+    "childsafe:language",
+    "childsafe:content-type",
+    "childsafe:design-age-min",
+    "childsafe:design-age-max",
+    "childsafe:minimum-age",
+    "childsafe:parental-guidance",
+    "childsafe:interaction-type",
+    "childsafe:adult-contact-possible",
+    "childsafe:data-collection",
+    "childsafe:data-sold",
+    "childsafe:law-compliant",
+    "childsafe:privacy-policy-url",
+    "childsafe:anonymous-access",
+    "childsafe:advertising",
+    "childsafe:in-app-purchase",
+    "childsafe:subscription-required",
+    "childsafe:randomised-reward",
+    "childsafe:free-to-access",
+    "childsafe:jurisdiction",
+    "childsafe:registry",
+    "childsafe:valid-from",
+    "childsafe:valid-until",
+    "childsafe:sequence",
+    "childsafe:scope",
+    "childsafe:external-resources",
+    "childsafe:canonicalization",
+    "childsafe:reviewer",
+    "childsafe:determination-date",
+    "childsafe:status"
+  ],
+  "properties": {
+    "@context": {
+      "const": "https://schema.childstandards.org/v1"
+    },
+    "@type": {
+      "const": "ConformingDomain"
+    },
+    "childsafe:version": {
+      "const": "1.0"
+    },
+    "childsafe:domain": {
+      "type": "string",
+      "pattern": "^(?=.{1,253}$)([A-Za-z0-9]([A-Za-z0-9-]{0,61}[A-Za-z0-9])?\\.)+[A-Za-z]{2,63}$"
+    },
+    "childsafe:issued": {
+      "type": "string",
+      "format": "date"
+    },
+    "childsafe:updated": {
+      "type": "string",
+      "format": "date"
+    },
+    "childsafe:operator": {
+      "type": "string",
+      "minLength": 1
+    },
+    "childsafe:language": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "pattern": "^[a-z]{2,3}(-[A-Za-z0-9]{2,8})*$"
+      },
+      "description": "BCP 47 language tags. Two-letter codes exclude many languages that have only three-letter codes, and exclude regional variants."
+    },
+    "childsafe:content-type": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "enum": [
+          "educational",
+          "entertainment",
+          "news",
+          "social",
+          "gaming",
+          "creative-tools",
+          "reference",
+          "commercial",
+          "mixed"
+        ]
+      }
+    },
+    "childsafe:design-age-min": {
+      "type": "integer",
+      "minimum": 2,
+      "maximum": 17
+    },
+    "childsafe:design-age-max": {
+      "oneOf": [
+        {
+          "type": "integer",
+          "minimum": 2,
+          "maximum": 17
+        },
+        {
+          "const": "general-audience"
+        }
+      ],
+      "description": "Upper bound of the design age range, or general-audience where the service is designed without an upper age bound."
+    },
+    "childsafe:minimum-age": {
+      "type": "integer",
+      "minimum": 2,
+      "maximum": 17
+    },
+    "childsafe:parental-guidance": {
+      "type": "boolean"
+    },
+    "childsafe:age-assurance": {
+      "enum": [
+        "none",
+        "soft",
+        "verified"
+      ]
+    },
+    "childsafe:interaction-type": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "enum": [
+          "read-only",
+          "commenting",
+          "user-generated-content",
+          "live-interaction",
+          "messaging",
+          "multiplayer",
+          "forum",
+          "none"
+        ]
+      }
+    },
+    "childsafe:messaging": {
+      "enum": [
+        "none",
+        "moderated",
+        "unmoderated"
+      ]
+    },
+    "childsafe:ugc-moderation": {
+      "enum": [
+        "pre-moderated",
+        "post-moderated",
+        "community",
+        "none"
+      ]
+    },
+    "childsafe:live-interaction": {
+      "type": "boolean"
+    },
+    "childsafe:adult-contact-possible": {
+      "type": "boolean"
+    },
+    "childsafe:data-collection": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "enum": [
+          "none",
+          "account-data",
+          "usage-analytics",
+          "location",
+          "behavioural",
+          "biometric"
+        ]
+      }
+    },
+    "childsafe:data-sold": {
+      "type": "boolean"
+    },
+    "childsafe:law-compliant": {
+      "type": "boolean"
+    },
+    "childsafe:privacy-policy-url": {
+      "type": "string",
+      "format": "uri",
+      "pattern": "^https://"
+    },
+    "childsafe:anonymous-access": {
+      "type": "boolean"
+    },
+    "childsafe:advertising": {
+      "enum": [
+        "none",
+        "contextual",
+        "sponsor-identified"
+      ]
+    },
+    "childsafe:in-app-purchase": {
+      "type": "boolean"
+    },
+    "childsafe:subscription-required": {
+      "type": "boolean"
+    },
+    "childsafe:randomised-reward": {
+      "type": "boolean"
+    },
+    "childsafe:free-to-access": {
+      "type": "boolean"
+    },
+    "childsafe:jurisdiction": {
+      "type": "string",
+      "pattern": "^[A-Z]{2}$"
+    },
+    "childsafe:registry": {
+      "type": "string",
+      "pattern": "^(?=.{1,253}$)([A-Za-z0-9]([A-Za-z0-9-]{0,61}[A-Za-z0-9])?\\.)+[A-Za-z]{2,63}$"
+    },
+    "childsafe:valid-from": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "childsafe:valid-until": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "childsafe:sequence": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "childsafe:scope": {
+      "enum": [
+        "domain-and-subdomains",
+        "domain-only"
+      ]
+    },
+    "childsafe:excluded-hosts": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "pattern": "^(?=.{1,253}$)([A-Za-z0-9]([A-Za-z0-9-]{0,61}[A-Za-z0-9])?\\.)+[A-Za-z]{2,63}$"
+      }
+    },
+    "childsafe:external-resources": {
+      "enum": [
+        "conforming-only",
+        "declared",
+        "none"
+      ]
+    },
+    "childsafe:canonicalization": {
+      "const": "RFC8785"
+    },
+    "childsafe:reviewer": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Accredited body that made the conformity determination. Not the registry."
+    },
+    "childsafe:determination-date": {
+      "type": "string",
+      "format": "date",
+      "description": "Date of the conformity determination by the reviewer."
+    },
+    "childsafe:status": {
+      "enum": [
+        "verified",
+        "pending",
+        "under-review",
+        "suspended"
+      ],
+      "description": "Operative status recorded and attested by the registry, reflecting the reviewer's determination. The registry does not make the substantive judgment."
+    }
+  },
+  "allOf": [
+    {
+      "$comment": "Standard 6.3: adult-contact-possible must be false where minimum-age is under 13.",
+      "if": {
+        "properties": {
+          "childsafe:minimum-age": {
+            "type": "integer",
+            "maximum": 12
+          }
+        },
+        "required": [
+          "childsafe:minimum-age"
+        ]
+      },
+      "then": {
+        "properties": {
+          "childsafe:adult-contact-possible": {
+            "const": false
+          }
+        }
+      }
+    },
+    {
+      "$comment": "Standard 6.3: ugc-moderation is required where user-generated content is declared.",
+      "if": {
+        "properties": {
+          "childsafe:interaction-type": {
+            "contains": {
+              "const": "user-generated-content"
+            }
+          }
+        },
+        "required": [
+          "childsafe:interaction-type"
+        ]
+      },
+      "then": {
+        "required": [
+          "childsafe:ugc-moderation"
+        ]
+      }
+    },
+    {
+      "$comment": "Standard 6.3: messaging moderation level is required where messaging is declared.",
+      "if": {
+        "properties": {
+          "childsafe:interaction-type": {
+            "contains": {
+              "const": "messaging"
+            }
+          }
+        },
+        "required": [
+          "childsafe:interaction-type"
+        ]
+      },
+      "then": {
+        "required": [
+          "childsafe:messaging"
+        ]
+      }
+    },
+    {
+      "$comment": "Standard 6.3: live-interaction flag is required where live interaction is declared.",
+      "if": {
+        "properties": {
+          "childsafe:interaction-type": {
+            "contains": {
+              "const": "live-interaction"
+            }
+          }
+        },
+        "required": [
+          "childsafe:interaction-type"
+        ]
+      },
+      "then": {
+        "required": [
+          "childsafe:live-interaction"
+        ]
+      }
+    },
+    {
+      "$comment": "Standard 6.2: age-assurance is required where minimum-age is 13 or above.",
+      "if": {
+        "properties": {
+          "childsafe:minimum-age": {
+            "type": "integer",
+            "minimum": 13
+          }
+        },
+        "required": [
+          "childsafe:minimum-age"
+        ]
+      },
+      "then": {
+        "required": [
+          "childsafe:age-assurance"
+        ]
+      }
+    },
+    {
+      "$comment": "A record must not be valid before it is issued.",
+      "if": {
+        "required": [
+          "childsafe:valid-from",
+          "childsafe:valid-until"
+        ]
+      },
+      "then": {
+        "properties": {
+          "childsafe:valid-until": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    {
+      "$comment": "Where scope is domain-only, subordinate hosts are not covered and excluded-hosts is meaningless.",
+      "if": {
+        "properties": {
+          "childsafe:scope": {
+            "const": "domain-only"
+          }
+        },
+        "required": [
+          "childsafe:scope"
+        ]
+      },
+      "then": {
+        "not": {
+          "required": [
+            "childsafe:excluded-hosts"
+          ]
+        }
+      }
+    }
+  ]
+}

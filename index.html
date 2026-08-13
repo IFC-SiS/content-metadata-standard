@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>childsafe: vocabulary, Version 1.0 — IFC-SiS</title>
+<style>
+  :root { --navy:#1F3050; --gold:#C9A227; --teal:#2E9B8E; --grey:#5A6472; }
+  body { font-family: Calibri, "Segoe UI", system-ui, sans-serif; color:#222;
+         max-width: 46rem; margin: 0 auto; padding: 2.5rem 1.5rem 5rem; line-height:1.55; }
+  header { border-bottom: 3px solid var(--gold); padding-bottom: 1rem; margin-bottom: 2rem; }
+  .org { font-size:.72rem; letter-spacing:.14em; font-weight:700; color:var(--navy); text-transform:uppercase; }
+  h1 { color: var(--navy); font-size: 2rem; margin:.6rem 0 .2rem; }
+  .sub { color: var(--grey); font-size:1.05rem; }
+  h2 { color: var(--navy); font-size:1.2rem; margin-top:2.2rem; }
+  h3 { color: var(--teal); font-size:.95rem; margin-top:1.6rem; }
+  code, pre { font-family: ui-monospace, Menlo, Consolas, monospace; font-size:.85rem; }
+  pre { background:#F7F8FA; border:1px solid #D8DCE3; border-left:4px solid var(--gold);
+        padding:.9rem 1rem; overflow-x:auto; }
+  table { border-collapse: collapse; width:100%; font-size:.88rem; margin:.6rem 0 1.2rem; }
+  th { text-align:left; color:var(--navy); border-bottom:2px solid #D8DCE3; padding:.4rem .5rem; }
+  td { border-bottom:1px solid #E4E7EC; padding:.4rem .5rem; vertical-align:top; }
+  td:first-child { font-family: ui-monospace, Menlo, Consolas, monospace; white-space:nowrap; }
+  a { color: var(--teal); }
+  .note { background:#F7F8FA; border-left:4px solid var(--gold); padding:.9rem 1rem; margin:1.2rem 0; }
+  footer { margin-top:3rem; padding-top:1rem; border-top:1px solid #D8DCE3; color:var(--grey); font-size:.85rem; }
+  .muted { color: var(--grey); font-size:.9rem; }
+  .req { font-size:.72rem; letter-spacing:.06em; text-transform:uppercase; color:var(--gold); font-weight:700; }
+  .opt { font-size:.72rem; letter-spacing:.06em; text-transform:uppercase; color:var(--grey); font-weight:700; }
+  .vals { font-size:.85rem; }
+  .err { background:#FDF3F3; border-left:4px solid #B3261E; padding:.9rem 1rem; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="org">International Foundation for Child-Safe internet Standards</div>
+  <h1>The <code>childsafe:</code> vocabulary</h1>
+  <div class="sub">Version 1.0 — draft for public comment</div>
+</header>
+
+<p>This is the versioned context document for the IFC-SiS Content Metadata Standard. A conforming
+child-safe namespace record binds to it with:</p>
+
+<pre>"@context": "https://schema.childstandards.org/v1"</pre>
+
+<p>The <code>childsafe:</code> prefix is invariant in every national instance. Field names are never
+localised and the vocabulary is closed at a given version: a record may carry only terms defined in
+the version it declares, so an unrecognised term is a validation error rather than a silently ignored
+extension.</p>
+
+<div class="note">
+  <strong>Status.</strong> This is a working draft published for technical review. It does not
+  constitute a final normative instrument. Field semantics are defined normatively in the Content
+  Metadata Standard; where this document and the Standard differ on a field's meaning, the Standard
+  governs. Comments to <a href="mailto:shknudson@ifcsis.org">shknudson@ifcsis.org</a>.
+</div>
+
+<h3>Record validity and integrity</h3>
+<table>
+  <tr><th>Term</th><th>Type</th><th>Status</th><th>Permitted values</th></tr>
+  <tr><td>childsafe:valid-from</td><td>ISO date-time</td><td>Required</td><td>Instant from which the record is operative</td></tr>
+  <tr><td>childsafe:valid-until</td><td>ISO date-time</td><td>Required</td><td>Instant after which the record MUST be rejected</td></tr>
+  <tr><td>childsafe:sequence</td><td>Integer</td><td>Required</td><td>Monotonic per domain; a relying party SHOULD reject a lower sequence than one already seen</td></tr>
+  <tr><td>childsafe:canonicalization</td><td>String</td><td>Required</td><td>RFC8785</td></tr>
+</table>
+
+<div class="note">
+  <strong>Why these exist.</strong> Without a bounded validity window, an evicted or superseded registrant could
+  continue serving an old but validly signed record indefinitely, and no relying party could detect it. The window
+  and the sequence number make staleness detectable without requiring real-time revocation infrastructure.
+  Canonicalization is fixed at RFC 8785 (JSON Canonicalization Scheme) because JSON serialisation is otherwise
+  non-deterministic and signatures would fail to verify across implementations.
+</div>
+
+<h3>Scope and dependencies</h3>
+<table>
+  <tr><th>Term</th><th>Type</th><th>Status</th><th>Permitted values</th></tr>
+  <tr><td>childsafe:scope</td><td>String</td><td>Required</td><td>domain-and-subdomains | domain-only</td></tr>
+  <tr><td>childsafe:excluded-hosts</td><td>Array</td><td>Conditional</td><td>Hostnames beneath the domain not covered by this record. Only meaningful where scope is domain-and-subdomains</td></tr>
+  <tr><td>childsafe:external-resources</td><td>String</td><td>Required</td><td>conforming-only | declared | none</td></tr>
+</table>
+
+<div class="note">
+  <strong>What is admitted.</strong> The admitted object is the registrant and the delegation granted to it, not a
+  page or a corpus. <code>scope</code> declares whether subordinate hosts are covered. <code>external-resources</code>
+  declares the rule for resources a browser fetches while rendering the site but which the registrant does not serve:
+  <code>conforming-only</code> means displayed or executed third-party resources must themselves originate from
+  conforming delegations; <code>declared</code> means external dependencies are enumerated and assessed with the record;
+  <code>none</code> means no external resources are loaded. Which rule is workable at registry scale is among the
+  questions a first trial exists to answer.
+</div>
+
+<h2>Machine-readable artifacts</h2>
+<table>
+  <tr><th>Artifact</th><th>Location</th></tr>
+  <tr><td>JSON-LD context</td><td><a href="/v1">/v1/index.jsonld</a></td></tr>
+  <tr><td>JSON Schema (shape validation)</td><td><a href="/v1/record.schema.json">/v1/record.schema.json</a></td></tr>
+  <tr><td>Example record</td><td><a href="/v1/example.json">/v1/example.json</a></td></tr>
+</table>
+
+<h2>The vocabulary</h2>
+
+<div id="vocab" aria-live="polite"><p class="muted">Loading the vocabulary from the published schema…</p></div>
+
+<div class="note">
+  <strong>These tables are generated from <code>/v1/record.schema.json</code> at page load.</strong>
+  They are not a hand-maintained description of the schema; they are the schema, rendered. If a field is
+  added, removed or constrained, this page changes with it, and documentation cannot drift from the artifact
+  implementers actually validate against.
+</div>
+
+<h2>What the vocabulary does not contain</h2>
+<p>There is no field describing the faith, religious tradition, political alignment, or value system
+of a domain, and there will not be. Pluralism is delivered at the curator layer: independent curators
+read the neutral record and build guides reflecting a particular pedagogical, cultural, linguistic or
+family-values perspective. Curators read the schema; only the Foundation, through consultation,
+writes it.</p>
+
+<h2>Signing and freshness</h2>
+<div class="note">
+  <strong>Two implementation traps, named so implementers do not find them the hard way.</strong>
+  Under RFC 8785, object keys sort by <em>UTF-16 code-unit sequence</em> &mdash; not by UTF-8 bytes, not by code
+  point, and not by any locale-aware collation. A naive sort passes most tests and diverges on supplementary-plane
+  characters. And numbers serialise by ECMAScript rules, so <code>333333333.33333329</code> canonicalises to
+  <code>333333333.3333333</code>. An implementation that gets either wrong produces signatures that verify locally
+  and fail everywhere else.
+</div>
+<p>Before any signature profile is locked, the same records should be canonicalised through at least three
+independent implementations in different languages and the output compared byte for byte. Libraries verified
+against the reference vectors exist for Python, JavaScript, Go, Java and Rust; the reference test data, including
+the Unicode key-sorting vector and the number edge cases, is published alongside the RFC. A conforming
+implementation should be tested against those vectors rather than against our example record alone.</p>
+<p>The signature profile must also state precisely what is canonicalised &mdash; the whole unsigned record or a
+defined subset &mdash; and how the signature is attached. That is specification work still outstanding, and it is
+listed here rather than left to be discovered.</p>
+
+<p>The vocabulary does not define a cryptographic format and does not intend to. A conforming implementation uses a
+published signature profile specifying canonicalisation (fixed here at RFC 8785), permitted algorithms, key discovery,
+rotation and revocation, built on existing internet standards rather than on primitives of our own.</p>
+<p>A signature attests that the record is the attesting party's current conformity record for that delegation. It does
+not independently establish the truth of any representation the record contains. Cryptographic authenticity is not
+substantive truth.</p>
+<p>A relying party MUST reject a record outside its validity window, and SHOULD reject a record whose sequence number
+is lower than one already observed for the same domain. Behaviour where a record cannot be retrieved at all &mdash;
+whether to fail open or fail closed &mdash; is a deployment policy question and is deliberately not fixed here.</p>
+
+<h2>Versioning</h2>
+<p>The context URL embeds the major version. A consuming implementation pins to the major versions it
+understands and refuses records declaring a major version it does not. Minor, backward-compatible
+clarifications are published without changing the URL; field additions or removals require a major
+version and follow the consultation and advance-notice procedure in the Standard. The immediately
+preceding major version is maintained for no less than twelve months after a release.</p>
+
+<footer>
+  International Foundation for Child-Safe internet Standards ·
+  <a href="mailto:shknudson@ifcsis.org">shknudson@ifcsis.org</a><br>
+  Published for comment. Amendments follow a public consultation of no less than 30 days.
+</footer>
+
+
+<script>
+(async () => {
+  const mount = document.getElementById('vocab');
+  const GROUPS = [
+    ['Identity and classification',
+      ['childsafe:version','childsafe:domain','childsafe:issued','childsafe:updated',
+       'childsafe:operator','childsafe:language','childsafe:content-type']],
+    ['Age suitability',
+      ['childsafe:design-age-min','childsafe:design-age-max','childsafe:minimum-age',
+       'childsafe:parental-guidance','childsafe:age-assurance']],
+    ['Interaction and social features',
+      ['childsafe:interaction-type','childsafe:messaging','childsafe:ugc-moderation',
+       'childsafe:live-interaction','childsafe:adult-contact-possible']],
+    ['Privacy and data',
+      ['childsafe:data-collection','childsafe:data-sold','childsafe:law-compliant',
+       'childsafe:privacy-policy-url','childsafe:anonymous-access']],
+    ['Commercial features',
+      ['childsafe:advertising','childsafe:in-app-purchase','childsafe:subscription-required',
+       'childsafe:randomised-reward','childsafe:free-to-access']],
+    ['Scope and dependencies',
+      ['childsafe:scope','childsafe:excluded-hosts','childsafe:external-resources']],
+    ['Record validity and integrity',
+      ['childsafe:valid-from','childsafe:valid-until','childsafe:sequence','childsafe:canonicalization']],
+    ['Envelope — who decided, and who recorded',
+      ['childsafe:jurisdiction','childsafe:reviewer','childsafe:determination-date',
+       'childsafe:status','childsafe:registry']]
+  ];
+
+  const esc = s => String(s).replace(/[&<>]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+
+  function describe(d) {
+    if (!d) return { type:'—', values:'—' };
+    if (d.const !== undefined) return { type:'String', values:'"'+d.const+'"' };
+    if (d.enum) return { type:'String', values:d.enum.join(' | ') };
+    if (d.oneOf) {
+      const parts = d.oneOf.map(o => describe(o).values);
+      return { type:'Integer or String', values:parts.join(', or ') };
+    }
+    if (d.type === 'array') {
+      const it = describe(d.items || {});
+      return { type:'Array', values:it.values };
+    }
+    if (d.type === 'integer') {
+      const lo = d.minimum, hi = d.maximum;
+      return { type:'Integer', values:(lo!==undefined&&hi!==undefined)?lo+'–'+hi:(lo!==undefined?'≥ '+lo:'—') };
+    }
+    if (d.type === 'boolean') return { type:'Boolean', values:'true | false' };
+    if (d.type === 'string') {
+      if (d.format === 'date') return { type:'ISO date', values:'YYYY-MM-DD' };
+      if (d.format === 'date-time') return { type:'ISO date-time', values:'RFC 3339 instant' };
+      if (d.format === 'uri') return { type:'URL', values:'https URL' };
+      if (d.pattern) return { type:'String', values:'pattern: '+d.pattern };
+      return { type:'String', values:'—' };
+    }
+    return { type:d.type || '—', values:'—' };
+  }
+
+  try {
+    const res = await fetch('/v1/record.schema.json', { headers:{ 'Accept':'application/json' }});
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    const schema = await res.json();
+    const props = schema.properties || {};
+    const required = new Set(schema.required || []);
+    const seen = new Set();
+    let html = '';
+
+    for (const [title, fields] of GROUPS) {
+      const rows = fields.filter(f => props[f]);
+      if (!rows.length) continue;
+      html += '<h3>' + esc(title) + '</h3><table><tr><th>Term</th><th>Type</th><th>Status</th><th>Permitted values</th></tr>';
+      for (const f of rows) {
+        seen.add(f);
+        const d = describe(props[f]);
+        const status = required.has(f)
+          ? '<span class="req">Required</span>'
+          : '<span class="opt">Conditional</span>';
+        html += '<tr><td>' + esc(f) + '</td><td>' + esc(d.type) + '</td><td>' + status +
+                '</td><td class="vals">' + esc(d.values) + '</td></tr>';
+      }
+      html += '</table>';
+    }
+
+    const ungrouped = Object.keys(props).filter(k => !seen.has(k) && !k.startsWith('@'));
+    if (ungrouped.length) {
+      html += '<h3>Other terms</h3><table><tr><th>Term</th><th>Type</th><th>Status</th><th>Permitted values</th></tr>';
+      for (const f of ungrouped) {
+        const d = describe(props[f]);
+        const status = required.has(f) ? '<span class="req">Required</span>' : '<span class="opt">Conditional</span>';
+        html += '<tr><td>' + esc(f) + '</td><td>' + esc(d.type) + '</td><td>' + status +
+                '</td><td class="vals">' + esc(d.values) + '</td></tr>';
+      }
+      html += '</table>';
+    }
+
+    html += '<p class="muted">' + Object.keys(props).filter(k=>!k.startsWith('@')).length +
+            ' terms, generated from the published schema. Conditional fields are required only where the ' +
+            'trigger condition in the Standard applies.</p>';
+    mount.innerHTML = html;
+  } catch (e) {
+    mount.innerHTML = '<div class="err"><strong>The vocabulary tables could not be generated.</strong> ' +
+      'The schema at <code>/v1/record.schema.json</code> did not load (' + esc(e.message) + '). ' +
+      'This usually means the file is not being served, or CORS headers are missing. ' +
+      'The normative artifacts remain available directly at <a href="/v1">/v1</a> and ' +
+      '<a href="/v1/record.schema.json">/v1/record.schema.json</a>.</div>';
+  }
+})();
+</script>
+</body>
+</html>
